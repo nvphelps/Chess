@@ -2,6 +2,8 @@ import java.util.HashSet;
 
 public class King extends BasePiece{
 
+    public boolean inCheck = false;
+
     public King(boolean white, Square location) {
         super(white, location);
     }
@@ -47,8 +49,9 @@ public class King extends BasePiece{
             //King Side Castling
             boolean flag;
             castlingSet.addAll(createNewFeeler(board, new Coord(1,0)));
+            castlingSet.add(location);
             flag = isCastlingPathInCheck(board, castlingSet);
-            if (castlingSet.size() != 2) {
+            if (castlingSet.size() != 3) {
                 flag = false;
             }
             if (board.array[7][y].getPiece() == null || board.array[7][y].getPiece().getMovesCounter() != 0) {
@@ -61,8 +64,9 @@ public class King extends BasePiece{
             //Queen Side Castling
             castlingSet.clear();
             castlingSet.addAll(createNewFeeler(board, new Coord(-1,0)));
+            castlingSet.add(location);
             flag = isCastlingPathInCheck(board, castlingSet);
-            if (castlingSet.size() != 3) {
+            if (castlingSet.size() != 4) {
                 flag = false;
             }
             if (board.array[0][y].getPiece() == null || board.array[0][y].getPiece().getMovesCounter() != 0) {
@@ -81,21 +85,24 @@ public class King extends BasePiece{
         for (Square square : castlingList) {
                 if (isWhite()) {
                     for (BasePiece piece : board.blackTeamPieces) {
-                        if (piece.legalMovesSet.contains(square)) {
-                            flag = false;
+                        for (Square otherSquare : piece.legalMovesSet) {
+                            if (square.equals(otherSquare)) {
+                                flag = false;
+                            }
                         }
                     }
                 } else {
                     for (BasePiece piece : board.whiteTeamPieces) {
-                        if (piece.legalMovesSet.contains(square)) {
-                            flag = false;
+                        for (Square otherSquare : piece.legalMovesSet) {
+                            if (square.equals(otherSquare)) {
+                                flag = false;
+                            }
                         }
                     }
                 }
         }
         return flag;
     }
-
 
     @Override
     public String toString() {

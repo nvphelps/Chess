@@ -2,7 +2,7 @@ import java.util.LinkedList;
 
 public class Board {
 
-    //TODO set all variables to private
+    //TODO set all variables to private, combine teampieces into one list
     public Square[][] array;
     public LinkedList<BasePiece> whiteTeamPieces = new LinkedList<>();
     public LinkedList<BasePiece> blackTeamPieces = new LinkedList<>();
@@ -109,9 +109,6 @@ public class Board {
         return board;
     }
 
-    /**
-     *
-     */
     public void updateAllPossibleMoves() {
         for (BasePiece piece : whiteTeamPieces) {
             if (piece.location != null) {
@@ -147,7 +144,6 @@ public class Board {
         }
     }
 
-    //Todo fix this
     public boolean move(BasePiece piece, Square destination) {
         if (piece.checkMoveIsIllegal(destination)) {
             return false;
@@ -157,11 +153,21 @@ public class Board {
         BasePiece originalPiece = destination.getPiece();
         destination.setPiece(piece);
         piece.incrementMovesCounter();
-        updateAllLegalMoves();
 
         piece.specialRulePostMove(this, originalLocation, destination, originalPiece);
 
+        updateAllLegalMoves();
+
         if (isKingInCheck(!piece.isWhite())) {
+            if (!piece.isWhite()) {
+                whiteKing.legalMovesSet.remove(array[0][whiteKing.getLocation().getCoord().y]);
+                whiteKing.legalMovesSet.remove(array[7][whiteKing.getLocation().getCoord().y]);
+            } else {
+                blackKing.legalMovesSet.remove(array[0][blackKing.getLocation().getCoord().y]);
+                blackKing.legalMovesSet.remove(array[7][blackKing.getLocation().getCoord().y]);
+            }
+
+
             System.out.print("Check!");
         }
 
@@ -187,6 +193,7 @@ public class Board {
                 }
             }
         }
+
         return output;
     }
 
