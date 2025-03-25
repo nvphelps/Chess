@@ -92,4 +92,10 @@ public class ChessTest {
         Board copy2 = original.copy();
         System.out.println("After moving: \n"); System.out.println(copy2);
     }
+
+    @Test
+    public void testDivision() {
+        System.out.println(-2/4);
+    }
+
 }
