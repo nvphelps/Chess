@@ -2,7 +2,7 @@
 
 Must have java installed already.
 
-1. Download the classFiles folder in the src from the repository.
+1. Download the classFiles folder from the repository.
 
 2. Open windows settings menu and go to:
 Time and Lanugage -> Language and region -> Administrative Language Settings -> Change System Locale -> turn on Beta: Use Unicode UTF-8 for worldwide language support
