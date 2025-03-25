@@ -5,6 +5,7 @@ import java.util.Objects;
  */
 public class Coord {
 
+    //TODO make immutable
     public int x;
     public int y;
 

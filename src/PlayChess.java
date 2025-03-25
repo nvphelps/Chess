@@ -14,7 +14,7 @@ public class PlayChess {
 
         //Launch Sequence
         while (true) {
-            System.out.println("Welcome to Chess.\nType 'start' to start a new game.\nType 'help' for a list of commands.");
+            System.out.println("Welcome to Chess.\n\nType 'start' to start a new game.\nType 'help' for a list of commands.");
             System.out.print("> ");
             String command = sc.next();
             if (command.equals("quit")) {
@@ -117,12 +117,12 @@ public class PlayChess {
                 message = "Game Over! Draw.";
             }
         } else {
-            for (BasePiece piece : chessBoard.whiteTeamPieces) {
+            for (BasePiece piece : chessBoard.blackTeamPieces) {
                 if (!piece.legalMovesSet.isEmpty() && piece.location != null) {
                     return;
                 }
             }
-            if (chessBoard.isKingInCheck(true)) {
+            if (chessBoard.isKingInCheck(false)) {
                 message = "Check Mate! White Wins.";
             } else {
                 message = "Game Over! Draw.";
@@ -150,12 +150,16 @@ public class PlayChess {
         System.out.print("\033[H\033[2J");
         System.out.flush();
 
-        System.out.println("This is the help menu.\nCurrently under construction.");
-        System.out.println("To select a piece, type in its corresponding coordinate letter first.");
-        System.out.println("To move the selected piece, type in the coordinate of the square you want to move it to." +
-                "\n Legal moves will be highlighted green for the selected piece.");
+        System.out.println("This is the help menu.\n");
+
+        System.out.print("To select a piece, type in its corresponding coordinate.\n");
+        System.out.print("For example, typing 'd5' and pressing enter would select\nthe piece on d5.\n\n");
+
+        System.out.print("To move the selected piece, type in the coordinate of the\n");
+        System.out.print("square you want to move it to. Legal moves will be\nhighlighted green for the selected piece.\n\n");
+
         System.out.println("To de-select a piece, type 'cancel'");
-        System.out.println("To exit the game, type 'quit'.");
+        System.out.println("To exit the program at any time, type 'quit'.\n");
 
         System.out.println("Type anything to exit this menu");
         Scanner sc = new Scanner(System.in);
